@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 0 20px;
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    #taskInput {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+    .task {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 5px;
+        border-left: 5px solid transparent;
+    }
+    .task.completed {
+        border-left-color: #4CAF50; /* Green color for completed tasks */
+        text-decoration: line-through;
+    }
+    .delete-button {
+        background-color: #f44336; /* Red color for delete button */
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>To-Do List</h1>
+    <input type="text" id="taskInput" placeholder="Add a new task...">
+    <div id="taskList"></div>
+</div>
+<script>
+    const taskInput = document.getElementById('taskInput');
+    const taskList = document.getElementById('taskList');
+
+    function addTask() {
+        const taskText = taskInput.value.trim();
+        if (taskText !== '') {
+            const taskItem = document.createElement('div');
+            taskItem.className = 'task';
+            taskItem.innerHTML = `
+                <span>${taskText}</span>
+                <button class="delete-button" onclick="removeTask(this)">Delete</button>
+            `;
+            taskList.appendChild(taskItem);
+            taskInput.value = '';
+        }
+    }
+
+    function removeTask(button) {
+        button.parentElement.remove();
+    }
+
+    taskInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            addTask();
+        }
+    });
+</script>
+</body>
+</html>
